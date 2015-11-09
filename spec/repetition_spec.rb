@@ -16,21 +16,21 @@ describe Repetition do
   end
 
   it 'initializes values properly' do
-    @card.easiness_factor.should == 2.5
-    @card.number_repetitions.should == 0
+    @card.easiness_factor.should        == 2.5
+    @card.number_repetitions.should     == 0
     @card.quality_of_last_recall.should == nil
-    @card.next_repetition.should == nil
-    @card.repetition_interval.should == nil
-    @card.last_studied.should == nil
+    @card.next_repetition.should        == nil
+    @card.repetition_interval.should    == nil
+    @card.last_studied.should           == nil
   end
 
   it 'schedules for tommorow when interval = 0 and quality = 4' do
     @card.process_recall_result(4)
 
-    @card.number_repetitions.should == 1
-    @card.repetition_interval.should == 1
-    @card.last_studied.should == Date.today
-    @card.next_repetition.should == (Date.today + 1)
+    @card.number_repetitions.should   == 1
+    @card.repetition_interval.should  == 1
+    @card.last_studied.should         == Date.today
+    @card.next_repetition.should      == (Date.today + 1)
     @card.easiness_factor.should be_within(2.5).of(0.01)
   end
 
@@ -38,18 +38,18 @@ describe Repetition do
     @card.process_recall_result(4)
     @card.process_recall_result(4)
 
-    @card.number_repetitions.should == 2
-    @card.repetition_interval.should == 6
-    @card.last_studied.should == Date.today
-    @card.next_repetition.should == (Date.today + 6)
+    @card.number_repetitions.should   == 2
+    @card.repetition_interval.should  == 6
+    @card.last_studied.should         == Date.today
+    @card.next_repetition.should      == (Date.today + 6)
     @card.easiness_factor.should be_within(2.5).of(0.01)
   end
 
   it 'reports as scheduled for today' do
-    @card.next_repetition = Date.today
+    @card.next_repetition              = Date.today
     @card.scheduled_to_recall?.should == true
 
-    @card.next_repetition = Date.today - 1
+    @card.next_repetition              = Date.today - 1
     @card.scheduled_to_recall?.should == true
   end
 
