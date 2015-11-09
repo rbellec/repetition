@@ -1,3 +1,5 @@
+require 'Date'
+
 module Repetition
   def reset_spaced_repetition_data
     self.easiness_factor        = 2.5
